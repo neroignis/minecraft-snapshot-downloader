@@ -6,10 +6,15 @@ $obj = json_decode($json);
 
 // set snapshot or release
 $version = 'snapshot';
+// set false to save last snapshot
+$overwrite = false;
 
 $latest = $obj->latest->$version;
 $versionJson = file_get_contents($obj->versions[0]->url);
 $versionObj = json_decode($versionJson);
 
 shell_exec('wget ' . $versionObj->downloads->server->url);
-rename('server.jar', 'server' . $latest . '.jar');
+
+if ($overwrite) {
+	rename('server.jar', 'server' . $latest . '.jar');
+}
