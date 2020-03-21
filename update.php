@@ -13,6 +13,10 @@ $latest = $obj->latest->$version;
 $versionJson = file_get_contents($obj->versions[0]->url);
 $versionObj = json_decode($versionJson);
 
+if ($overwrite) {
+	unset('server.jar');
+}
+
 shell_exec('wget ' . $versionObj->downloads->server->url);
 
 if ($overwrite) {
